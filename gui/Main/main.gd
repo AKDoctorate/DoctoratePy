@@ -6,12 +6,80 @@ func _ready():
 	$TabContainer.current_tab = 2
 
 #---------------------------------------------------------------------------
-#
+#	Saving
 #---------------------------------------------------------------------------
 
 func _on_start_pressed():
 	ConfigData.save_to_disk()
 	OS.shell_open(ConfigData.START_PATH)
+
+@onready var save_button : Button = $TopRight/Save
+@onready var autosave : CheckBox = $TopRight/Save/Autosave
+
+func _process_save_button():
+	save_button.toggle_mode = autosave.button_pressed
+	save_button.button_pressed = autosave.button_pressed
+	save_button.modulate = Color.LIGHT_CORAL if ConfigData.dirty else Color.WHITE
+
+func _ready_autosave():
+	autosave.button_pressed = ConfigData.autosave
+
+func _on_autosave_pressed():
+	ConfigData.autosave = autosave.button_pressed
+
+func _on_save_pressed():
+	ConfigData.save_to_disk()
+
+#---------------------------------------------------------------------------
+#	Account
+#---------------------------------------------------------------------------
+
+func _ready_account():
+	GameData.connect("character_table_loaded", _on_character_table_loaded)
+	GameData.connect("skin_table_loaded", _on_skin_table_loaded)
+
+
+@onready var secretary : OptionButton = $TabContainer/Account/VBoxContainer/Secretary/OptionButton
+
+var char_name_to_code_cache = {}
+
+func _on_character_table_loaded():
+	secretary.clear()
+	var arr = []
+	for k in GameData.character_table.keys():
+		if not "TRAP" == GameData.character_table[k]["profession"] \
+			and not "TOKEN" == GameData.character_table[k]["profession"]:
+			arr.append(GameData.character_table[k]["appellation"])
+			char_name_to_code_cache[GameData.character_table[k]["appellation"]] = k
+	arr.sort()
+	for s in arr:
+		secretary.add_item(s)
+	characters_done = true
+
+var characters_done = false
+
+func _on_skin_table_loaded():
+	while not characters_done:
+		await(get_tree().create_timer(0.1).timeout)
+
+@onready var secretary_skin : OptionButton = $TabContainer/Account/VBoxContainer/SecretarySkin/OptionButton
+
+var skin_name_to_code_cache = {}
+
+func add_skins_to_option_button():
+	skin_name_to_code_cache.clear()
+	secretary_skin.clear()
+	var arr = []
+	return
+	#TODO
+	for s in GameData.skin_table:
+		if s["charId"] == char_name_to_code_cache[secretary.get_item_text(secretary.get_selected_id())]:
+			secretary_skin.add_item(s["skinGroupId"])
+			#skin_name_to_code_cache[s["skinGroupId"]] = 
+
+#---------------------------------------------------------------------------
+#	Crisis
+#---------------------------------------------------------------------------
 
 @onready var cc_list : ItemList = $"TabContainer/Crisis/Left/ItemList"
 func _ready_cc_list():
@@ -61,23 +129,6 @@ func _apply_loaded_stage_info():
 	return
 	for s in GameData.stage_table["stages"].values():
 		cc_level.add_item(s["code"])
-
-@onready var save_button : Button = $TopRight/Save
-@onready var autosave : CheckBox = $TopRight/Save/Autosave
-
-func _process_save_button():
-	save_button.toggle_mode = autosave.button_pressed
-	save_button.button_pressed = autosave.button_pressed
-	save_button.modulate = Color.LIGHT_CORAL if ConfigData.dirty else Color.WHITE
-
-func _ready_autosave():
-	autosave.button_pressed = ConfigData.autosave
-
-func _on_autosave_pressed():
-	ConfigData.autosave = autosave.button_pressed
-
-func _on_save_pressed():
-	ConfigData.save_to_disk()
 
 func _on_cc_season_item_selected(index):
 	var cc = ConfigData.get_selected_crisis()
