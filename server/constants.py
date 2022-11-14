@@ -10,6 +10,7 @@ STAGE_TABLE_URL = BASE_URL + "/excel/stage_table.json"
 RL_TABLE_URL = BASE_URL + "/excel/roguelike_topic_table.json"
 DM_TABLE_URL = BASE_URL + "/excel/display_meta_table.json"
 RETRO_TABLE_URL = BASE_URL + "/excel/retro_table.json"
+HANDBOOK_INFO_TABLE_URL = BASE_URL + "/excel/handbook_info_table.json"
 
 # Config Data
 CONFIG_PATH = "config\\config.json"

@@ -1,3 +1,5 @@
+import time
+
 from flask import request
 
 from constants import USER_JSON_PATH
@@ -14,6 +16,38 @@ def charBuildBatchSetCharVoiceLan():
             "deleted": {}
         }
     }
+    return data
+
+
+def charBuildaddonStoryUnlock():
+    
+    data = request.data
+    request_data = request.get_json()
+
+    ts = {"fts": int(time.time()), "rts": int(time.time())} # TODO
+
+    data = {
+        "playerDataDelta": {
+            "deleted": {},
+            "modified": {
+                "troop": {
+                    "addon": {
+                    }
+                }
+            }
+        }
+    }
+
+    storyId = {"story": {request_data["storyId"]: ts}}
+    charId = {request_data["charId"]: storyId}
+
+    saved_data = read_json(USER_JSON_PATH)
+    saved_data["user"]["troop"]["addon"] = charId
+
+    data["playerDataDelta"]["modified"]["troop"]["addon"].update(charId)
+
+    write_json(saved_data, USER_JSON_PATH)
+
     return data
 
 

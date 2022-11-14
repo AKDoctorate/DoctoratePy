@@ -1,0 +1,53 @@
+on: 
+  push:
+    tags:
+      - "GUI-v*"
+
+jobs:
+  # job id, can be anything
+  export_game:
+    # Always use ubuntu-latest for this action
+    runs-on: ubuntu-latest
+    # Job name, can be anything
+    name: Build executable
+    steps:
+      # Always include the checkout step so that 
+      # your project is available for Godot to export
+    - name: checkout
+      uses: actions/checkout@v3.0.2
+      # Ensure that you get the entire project history
+      with:
+        fetch-depth: 0
+    
+    - name: get tag from version
+      id: tag_version
+      run: |
+          echo echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+    - name: install wine
+      id: wine_install
+      run: |
+        sudo apt install wine64
+        echo ::set-output name=WINE_PATH::$(which wine64)
+  
+    - name: DoctorateGUI
+      id: export
+      # Use latest version (see releases for all versions)
+      uses: firebelley/godot-export@v4.2.0
+      with:
+        # Defining all the required inputs
+        godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.0/beta4/Godot_v4.0-beta4_linux.x86_64.zip
+        godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.0/beta4/Godot_v4.0-beta4_export_templates.tpz
+        relative_project_path: ./gui
+        use_preset_export_path: true
+        wine_path: ${{ steps.wine_install.outputs.WINE_PATH }}
+        use_godot_4: true
+
+      # This release action has worked well for me. However, you can most likely use any release action of your choosing.
+      # https://github.com/softprops/action-gh-release
+    - name: create release
+      uses: softprops/action-gh-release@v0.1.14
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag_name: ${{ env.RELEASE_VERSION }}
+        files: DoctorateGUI.exe
