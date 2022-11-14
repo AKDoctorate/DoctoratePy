@@ -22,6 +22,9 @@ app.add_url_rule('/campaignV2/battleFinish', methods=['POST'], view_func=campaig
 
 app.add_url_rule('/char/changeMarkStar', methods=['POST'], view_func=char.charChangeMarkStar)
 
+app.add_url_rule('/charBuild/addonStage/battleStart', methods=['POST'], view_func=quest.questBattleStart)
+app.add_url_rule('/charBuild/addonStage/battleFinish', methods=['POST'], view_func=quest.questBattleFinish)
+app.add_url_rule('/charBuild/addonStory/unlock', methods=['POST'], view_func=charBuild.charBuildaddonStoryUnlock)
 app.add_url_rule('/charBuild/batchSetCharVoiceLan', methods=['POST'], view_func=charBuild.charBuildBatchSetCharVoiceLan)
 app.add_url_rule('/charBuild/setCharVoiceLan', methods=['POST'], view_func=charBuild.charBuildSetCharVoiceLan)
 app.add_url_rule('/charBuild/setDefaultSkill', methods=['POST'], view_func=charBuild.charBuildSetDefaultSkill)
@@ -64,6 +67,7 @@ app.add_url_rule('/rlv2/moveAndBattleStart', methods=['POST'], view_func=rlv2.rl
 app.add_url_rule('/shop/getSkinGoodList', methods=['POST'], view_func=shop.shopGetSkinGoodList)
 
 app.add_url_rule('/story/finishStory', methods=['POST'], view_func=story.storyFinishStory)
+app.add_url_rule('/quest/finishStoryStage', methods=['POST'], view_func=story.storyFinishStory)
 
 app.add_url_rule('/user/auth', methods=['POST'], view_func=user.userAuth)
 app.add_url_rule('/user/checkIn', methods=['POST'], view_func=user.userCheckIn)

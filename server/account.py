@@ -10,7 +10,8 @@ from flask import request
 
 from constants import USER_JSON_PATH, CONFIG_PATH, BATTLE_REPLAY_JSON_PATH, \
                     SKIN_TABLE_URL, CHARACTER_TABLE_URL, EQUIP_TABLE_URL, STORY_TABLE_URL, STAGE_TABLE_URL, \
-                    SYNC_DATA_TEMPLATE_PATH, BATTLEEQUIP_TABLE_URL, DM_TABLE_URL, RETRO_TABLE_URL
+                    SYNC_DATA_TEMPLATE_PATH, BATTLEEQUIP_TABLE_URL, DM_TABLE_URL, RETRO_TABLE_URL, \
+                    HANDBOOK_INFO_TABLE_URL
 from utils import read_json, write_json
 
 def accountLogin():
@@ -267,6 +268,7 @@ def accountSyncData():
 
     # Tamper Stages
     myStageList = {}
+    paradoxStageList = {}
     stage_table = requests.get(STAGE_TABLE_URL).json()
     for stage in stage_table["stages"]:
         myStageList.update({
@@ -280,8 +282,24 @@ def accountSyncData():
                 "state": 3
             }
         })
+
+    paradox_stage_table = requests.get(HANDBOOK_INFO_TABLE_URL).json()
+    for stage in paradox_stage_table["handbookStageData"]:
+        paradoxStageList[stage] = {
+            "stage": {
+                paradox_stage_table["handbookStageData"][stage]["stageId"]: {
+                    "startTimes": 0,
+                    "completeTimes": 1,
+                    "state": 3,
+                    "fts": 1624284657,
+                    "rts": 1624284657,
+                    "startTime": 2
+                }
+            }
+        } 
     
     player_data["user"]["dungeon"]["stages"] = myStageList
+    player_data["user"]["troop"]["addon"] = paradoxStageList
 
     # Tamper Side Stories and Intermezzis
     block = {}
