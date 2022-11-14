@@ -20,7 +20,7 @@ func _ready():
 		var http := HTTPRequest.new()
 		add_child(http)
 		http.connect("request_completed", _http_request_completed.bind(dicts[i]))
-		http.accept_gzip = false
+		http.accept_gzip = false # There is a bug if we don't do this atm
 		
 		var error := http.request(urls[i])
 		if error != OK:

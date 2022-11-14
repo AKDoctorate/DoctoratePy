@@ -1,6 +1,7 @@
 extends Control
 
 func _ready():
+	# The relayer will call any functions matching _ready_(.+), _process_(.+), or _on_(.+)_changed
 	add_child(preload("res://relayer.tscn").instantiate())
 	$TabContainer.current_tab = 2
 
@@ -13,17 +14,15 @@ func _on_start_pressed():
 	OS.shell_open(ConfigData.START_PATH)
 
 @onready var cc_list : ItemList = $"TabContainer/Crisis/Left/ItemList"
-func _process_cc_list():
-	if ConfigData.crisis_dirty:
-		cc_list.clear()
-		cc_list.add_item("none")
-		for c in ConfigData.crisis.keys():
-			cc_list.add_item(c)
-		ConfigData.crisis_dirty = false
-		var idx = ([null] + ConfigData.crisis.keys()).find(ConfigData.config["crisisConfig"]["selectedCrisis"])
-		cc_list.select(idx)
-		_on_item_list_item_selected(idx)
-		ConfigData.dirty = false
+func _ready_cc_list():
+	cc_list.clear()
+	cc_list.add_item("none")
+	for c in ConfigData.crisis.keys():
+		cc_list.add_item(c)
+	var idx = ([null] + ConfigData.crisis.keys()).find(ConfigData.config["crisisConfig"]["selectedCrisis"])
+	cc_list.select(idx)
+	_on_item_list_item_selected(idx)
+	ConfigData.dirty = false
 
 @onready var no_cc = $"TabContainer/Crisis/NoCC"
 @onready var cc_body = $"TabContainer/Crisis/Right"
@@ -37,7 +36,6 @@ func _process_cc_list():
 
 func _on_item_list_item_selected(idx):
 	ConfigData.config["crisisConfig"]["selectedCrisis"] = null if idx == 0 else cc_list.get_item_text(idx)
-	ConfigData.dirty = true
 	
 	if idx == 0:
 		no_cc.visible = true
@@ -75,30 +73,25 @@ func _process_save_button():
 
 func _on_autosave_pressed():
 	ConfigData.autosave = autosave.button_pressed
-	if autosave.button_pressed:
-		ConfigData.dirty = true
 
 func _on_save_pressed():
 	ConfigData.save_to_disk()
 
 func _on_cc_season_item_selected(index):
-	var cc = ConfigData.crisis[ConfigData.config["crisisConfig"]["selectedCrisis"]]
+	var cc = ConfigData.get_selected_crisis()
 	cc["data"]["seasonInfo"][0]["seasonId"] = "rune_season_" + str(index) + "_1"
-	ConfigData.dirty = true
-	cc["data"]["seasonInfo"][0]["stages"].values()[0]["code"]
 
 func _on_cc_code_text_changed(new_text):
-	var cc = ConfigData.crisis[ConfigData.config["crisisConfig"]["selectedCrisis"]]
-	cc["data"]["seasonInfo"][0]["stages"].values()[0]["code"] = new_text
-	ConfigData.dirty = true
+	var cc = ConfigData.get_selected_stage()
+	cc["code"] = new_text
 
 func _on_cc_stage_name_text_changed(new_text):
-	var cc = ConfigData.crisis[ConfigData.config["crisisConfig"]["selectedCrisis"]]
-	cc["data"]["seasonInfo"][0]["stages"].values()[0]["name"] = new_text
-	ConfigData.dirty = true
+	var cc = ConfigData.get_selected_stage()
+	cc["name"] = new_text
 
 func _on_cc_level_id_text_changed(new_text):
-	var cc = ConfigData.crisis[ConfigData.config["crisisConfig"]["selectedCrisis"]]
-	cc["data"]["seasonInfo"][0]["stages"].values()[0]["mapId"] = new_text
-	cc["data"]["seasonInfo"][0]["stages"].values()[0]["levelId"] = "Obt/Rune/level_" + new_text
-	ConfigData.dirty = true
+	var cc = ConfigData.get_selected_stage()
+	cc["mapId"] = new_text
+	var lid = GameData.stage_table["stages"][new_text]["levelId"] if GameData.stage_table["stages"].has(new_text) \
+		else "Obt/Rune/level_" + new_text # for now, we assume that if a stage is not in the stage table it's a CC stage
+	cc["levelId"] = lid
