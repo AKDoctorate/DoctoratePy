@@ -22,7 +22,6 @@ func _ready_cc_list():
 	var idx = ([null] + ConfigData.crisis.keys()).find(ConfigData.config["crisisConfig"]["selectedCrisis"])
 	cc_list.select(idx)
 	_on_item_list_item_selected(idx)
-	ConfigData.dirty = false
 
 @onready var no_cc = $"TabContainer/Crisis/NoCC"
 @onready var cc_body = $"TabContainer/Crisis/Right"
@@ -70,6 +69,9 @@ func _process_save_button():
 	save_button.toggle_mode = autosave.button_pressed
 	save_button.button_pressed = autosave.button_pressed
 	save_button.modulate = Color.LIGHT_CORAL if ConfigData.dirty else Color.WHITE
+
+func _ready_autosave():
+	autosave.button_pressed = ConfigData.autosave
 
 func _on_autosave_pressed():
 	ConfigData.autosave = autosave.button_pressed

@@ -5,7 +5,7 @@ func _ready():
 	add_child(preload("res://relayer.tscn").instantiate())
 
 #---------------------------------------------------------------------------
-#
+#	DoctoratePy Config
 #---------------------------------------------------------------------------
 
 # Change your dev path in the exported property
@@ -23,11 +23,6 @@ var dirty = false:
 	set(value):
 		dirty = value
 		if dirty and autosave:
-			save_to_disk()
-var autosave = false:
-	set(value):
-		autosave = value
-		if autosave:
 			save_to_disk()
 
 func _on_crisis_changed():
@@ -57,3 +52,24 @@ func save_to_disk():
 	var file = FileAccess.open(CONFIG_PATH, FileAccess.WRITE)
 	file.store_string(JSON.stringify(config, "\t"))
 	dirty = false
+
+#---------------------------------------------------------------------------
+#	GUI Config
+#---------------------------------------------------------------------------
+
+var gui_config = ConfigFile.new()
+
+var autosave = false:
+	set(value):
+		autosave = value
+		if autosave and dirty:
+			save_to_disk()
+
+func _ready_gui_config():
+	gui_config.load("user://gui_config.cfg")
+	for k in ["autosave"]:
+		set(k, gui_config.get_value("gui", k))
+
+func _on_autosave_changed():
+	gui_config.set_value("gui", "autosave", autosave)
+	gui_config.save("user://gui_config.cfg")
