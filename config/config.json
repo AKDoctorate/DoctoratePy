@@ -25,7 +25,7 @@
         "sign": "sign",
         "content": {
             "configVer": "5",
-            "funcVer": "V033",
+            "funcVer": "V034",
             "configs": {
                 "V033": {
                     "override": true,
