@@ -84,16 +84,11 @@
             }
         },
         "activity": {
-            "TYPE_ACT21SIDE": {
-                "act21side": {
+            "TYPE_ACT9D0": {
+                "act22side": {
                     "isOpen": true,
                     "coin": 0,
-                    "favorList": [
-                        "char_1028_texas2",
-                        "char_427_vigil",
-                        "char_4065_judge",
-                        "char_4014_lunacu"
-                    ]
+                    "favorList": []
                 }
             }
         },
@@ -252,7 +247,7 @@
         "mission": {
             "missions": {
                 "ACTIVITY": {
-                    "21sideActivity_1": {
+                    "22sideActivity_1": {
                         "state": 3,
                         "progress": [
                             {
@@ -261,7 +256,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_2": {
+                    "22sideActivity_2": {
                         "state": 3,
                         "progress": [
                             {
@@ -270,7 +265,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_3": {
+                    "22sideActivity_3": {
                         "state": 3,
                         "progress": [
                             {
@@ -279,7 +274,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_4": {
+                    "22sideActivity_4": {
                         "state": 3,
                         "progress": [
                             {
@@ -288,7 +283,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_5": {
+                    "22sideActivity_5": {
                         "state": 3,
                         "progress": [
                             {
@@ -297,7 +292,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_6": {
+                    "22sideActivity_6": {
                         "state": 3,
                         "progress": [
                             {
@@ -306,7 +301,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_7": {
+                    "22sideActivity_7": {
                         "state": 3,
                         "progress": [
                             {
@@ -315,7 +310,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_8": {
+                    "22sideActivity_8": {
                         "state": 3,
                         "progress": [
                             {
@@ -324,7 +319,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_9": {
+                    "22sideActivity_9": {
                         "state": 3,
                         "progress": [
                             {
@@ -333,7 +328,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_10": {
+                    "22sideActivity_10": {
                         "state": 3,
                         "progress": [
                             {
@@ -342,7 +337,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_11": {
+                    "22sideActivity_11": {
                         "state": 3,
                         "progress": [
                             {
@@ -351,7 +346,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_12": {
+                    "22sideActivity_12": {
                         "state": 3,
                         "progress": [
                             {
@@ -360,7 +355,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_13": {
+                    "22sideActivity_13": {
                         "state": 3,
                         "progress": [
                             {
@@ -369,7 +364,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_14": {
+                    "22sideActivity_14": {
                         "state": 3,
                         "progress": [
                             {
@@ -378,7 +373,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_15": {
+                    "22sideActivity_15": {
                         "state": 3,
                         "progress": [
                             {
@@ -387,7 +382,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_16": {
+                    "22sideActivity_16": {
                         "state": 3,
                         "progress": [
                             {
@@ -396,7 +391,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_17": {
+                    "22sideActivity_17": {
                         "state": 3,
                         "progress": [
                             {
@@ -405,7 +400,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_18": {
+                    "22sideActivity_18": {
                         "state": 3,
                         "progress": [
                             {
@@ -414,7 +409,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_19": {
+                    "22sideActivity_19": {
                         "state": 3,
                         "progress": [
                             {
@@ -423,7 +418,17 @@
                             }
                         ]
                     },
-                    "21sideActivity_20": {
+                    "22sideActivity_20": {
+                        "state": 3,
+                        "progress": [
+                       
+                            {
+                                "target": 1,
+                                "value": 1
+                            }
+                        ]
+                    },
+                    "22sideActivity_21": {
                         "state": 3,
                         "progress": [
                             {
@@ -432,7 +437,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_21": {
+                    "22sideActivity_22": {
                         "state": 3,
                         "progress": [
                             {
@@ -441,7 +446,7 @@
                             }
                         ]
                     },
-                    "21sideActivity_22": {
+                    "22sideActivity_23": {
                         "state": 3,
                         "progress": [
                             {
@@ -450,84 +455,12 @@
                             }
                         ]
                     },
-                    "21sideActivity_23": {
+                    "22sideActivity_24": {
                         "state": 3,
                         "progress": [
                             {
                                 "target": 1,
                                 "value": 1
-                            }
-                        ]
-                    },
-                    "21sideActivity_24": {
-                        "state": 2,
-                        "progress": [
-                            {
-                                "target": 1,
-                                "value": 0
-                            }
-                        ]
-                    },
-                    "21sideActivity_25": {
-                        "state": 3,
-                        "progress": [
-                            {
-                                "target": 1,
-                                "value": 1
-                            }
-                        ]
-                    },
-                    "21sideActivity_26": {
-                        "state": 3,
-                        "progress": [
-                            {
-                                "target": 1,
-                                "value": 1
-                            }
-                        ]
-                    },
-                    "21sideActivity_27": {
-                        "state": 3,
-                        "progress": [
-                            {
-                                "target": 1,
-                                "value": 1
-                            }
-                        ]
-                    },
-                    "21sideActivity_28": {
-                        "state": 2,
-                        "progress": [
-                            {
-                                "target": 1,
-                                "value": 0
-                            }
-                        ]
-                    },
-                    "21sideActivity_29": {
-                        "state": 3,
-                        "progress": [
-                            {
-                                "target": 15,
-                                "value": 15
-                            }
-                        ]
-                    },
-                    "21sideActivity_30": {
-                        "state": 3,
-                        "progress": [
-                            {
-                                "target": 45,
-                                "value": 45
-                            }
-                        ]
-                    },
-                    "21sideActivity_31": {
-                        "state": 2,
-                        "progress": [
-                            {
-                                "target": 85,
-                                "value": 53
                             }
                         ]
                     }
