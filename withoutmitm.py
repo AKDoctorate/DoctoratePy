@@ -65,7 +65,7 @@ def main():
 
             var return_url;
 
-            for (var i = 0; i < 9; i++) {
+            for (var i = 0; i < 7; i++) {
                 if(old_url.match(urls[i])){
                     return_url = new_url.replace(urls[i], proxy_url + ":" + proxy_port).replace("https", "http");
                     break;
