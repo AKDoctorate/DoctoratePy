@@ -41,7 +41,7 @@ def main():
 
     script = session.create_script("""
 
-    function redirect_traffic_to_proxy(proxy_url, proxy_port) {{
+    function redirect(proxy_url, proxy_port) {{
         Java.perform(function (){{
             console.log("[.] Traffic Redirection");
             var url = Java.use("java.net.URL");
@@ -139,8 +139,7 @@ def main():
             [0x1b7fcc9].forEach(hookFalse);
         }}, {timeout})
 
-        redirect_traffic_to_proxy(proxy_url, proxy_port);
-        replace_cert(mitm_cert_location_on_device);	
+        redirect(proxy_url, proxy_port);
     }}
 
     init();
