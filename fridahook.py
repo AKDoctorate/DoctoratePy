@@ -5,6 +5,8 @@ import frida
 
 from server.constants import CONFIG_PATH
 from server.utils import read_json
+
+HOST = read_json(CONFIG_PATH)["server"]["host"]
 PORT = read_json(CONFIG_PATH)["server"]["port"]
 
 def on_message(message, data):
@@ -127,7 +129,7 @@ def main():
     }}
 
     function init(){{
-        var proxy_url = "127.0.0.1";
+        var proxy_url = "{HOST}";
         var proxy_port = {PORT};
 
         setTimeout(function() {{
@@ -140,7 +142,7 @@ def main():
 
     init();
 
-""".format(timeout=timeout, PORT=PORT))
+""".format(timeout=timeout, HOST=HOST, PORT=PORT))
     script.on('message', on_message)
     script.load()
     print("[!] Ctrl+D on UNIX, Ctrl+Z on Windows/cmd.exe to detach from instrumented program.\n\n")

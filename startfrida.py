@@ -8,7 +8,7 @@ from ppadb.client import Client as AdbClient
 
 server_port = json.load(open('./config/config.json', 'r'))["server"]["port"]
 default_ports = [7555, 62001]
-ADB_PATH = r"D:\Program Files\Nox\bin\adb.exe"
+ADB_PATH = "platform-tools\\adb.exe"
 
 def get_device():
     devices = client.devices()
@@ -52,4 +52,4 @@ os.system(f'"{ADB_PATH}" wait-for-device')
 
 print("\nRunning frida\nNow you can start fridahook\n")
 os.system(f'"{ADB_PATH}" reverse tcp:{server_port} tcp:{server_port}')
-os.system(f'"{ADB_PATH}"' + " shell /data/local/tmp/frida-server &")
+os.system(f'"{ADB_PATH}"' + " shell /data/local/tmp/frida-server")
