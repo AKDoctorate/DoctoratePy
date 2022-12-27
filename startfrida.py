@@ -8,7 +8,7 @@ from ppadb.client import Client as AdbClient
 
 server_port = json.load(open('./config/config.json', 'r'))["server"]["port"]
 default_ports = [7555, 62001]
-ADB_PATH = r"D:\Program Files\Nox\bin\adb.exe"
+ADB_PATH = r"platform-tools\adb.exe"
 
 def get_device():
     devices = client.devices()
