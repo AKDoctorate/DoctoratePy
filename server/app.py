@@ -8,8 +8,8 @@ from utils import read_json
 from constants import CONFIG_PATH
 
 import account, background, building, campaignV2, char, charBuild, charm, \
-        crisis, deepsea, mail, online, quest, pay, rlv2, shop, story, user, \
-        asset.assetbundle, config.prod
+        crisis, deepsea, mail, online, tower, quest, pay, rlv2, shop, story, \
+        user, asset.assetbundle, config.prod
 
 server_config = read_json(CONFIG_PATH)
 
@@ -76,6 +76,16 @@ app.add_url_rule('/mail/removeAllReceivedMail', methods=['POST'], view_func=mail
 
 app.add_url_rule('/online/v1/ping', methods=['POST'], view_func=online.onlineV1Ping)
 app.add_url_rule('/online/v1/loginout', methods=['POST'], view_func=online.onlineV1LoginOut)
+
+app.add_url_rule('/tower/createGame', methods=['POST'], view_func=tower.towerCreateGame)
+app.add_url_rule('/tower/initGodCard', methods=['POST'], view_func=tower.towerInitGodCard)
+app.add_url_rule('/tower/initGame', methods=['POST'], view_func=tower.towerInitGame)
+app.add_url_rule('/tower/initCard', methods=['POST'], view_func=tower.towerInitCard)
+app.add_url_rule('/tower/battleStart', methods=['POST'], view_func=tower.towerBattleStart)
+app.add_url_rule('/tower/battleFinish', methods=['POST'], view_func=tower.towerBattleFinish)
+app.add_url_rule('/tower/recruit', methods=['POST'], view_func=tower.towerRecruit)
+app.add_url_rule('/tower/chooseSubGodCard', methods=['POST'], view_func=tower.towerChooseSubGodCard)
+app.add_url_rule('/tower/settleGame', methods=['POST'], view_func=tower.towerSettleGame)
 
 app.add_url_rule('/pay/getUnconfirmedOrderIdList', methods=['POST'], view_func=pay.payGetUnconfirmedOrderIdList)
 app.add_url_rule('/u8/pay/getAllProductList', methods=['POST'], view_func=pay.paygetAllProductList)

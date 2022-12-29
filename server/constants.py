@@ -19,6 +19,9 @@ RLV2_CHOICEBUFFS = "data\\rlv2\\choiceBuffs.json"
 RLV2_RECRUITGROUPS = "data\\rlv2\\recruitGroups.json"
 RLV2_NODESINFO = "data\\rlv2\\nodesInfo.json"
 
+# Tower Data
+TOWERDATA_PATH = "data\\tower\\towerData.json"
+
 config = read_json(CONFIG_PATH)
 mode = config["server"]["mode"]
 if mode == "global":
@@ -39,3 +42,4 @@ RL_TABLE_URL = BASE_URL + "/excel/roguelike_topic_table.json"
 DM_TABLE_URL = BASE_URL + "/excel/display_meta_table.json"
 RETRO_TABLE_URL = BASE_URL + "/excel/retro_table.json"
 HANDBOOK_INFO_TABLE_URL = BASE_URL + "/excel/handbook_info_table.json"
+TOWER_TABLE_URL = BASE_URL + "/excel/climb_tower_table.json"
