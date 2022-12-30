@@ -11,7 +11,9 @@ def updateData(url):
 
     BASE_URL_LIST = [
         ("https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata", './data'),
-        ("https://ak-conf.hypergryph.com/config/prod/announce_meta/Android", './data/announce')
+        ("https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/en_US/gamedata", './data'),
+        ("https://ak-conf.hypergryph.com/config/prod/announce_meta/Android", './data/announce'),
+        ("https://ark-us-static-online.yo-star.com/announce/Android", './data/announce'),
     ]
 
     for index in BASE_URL_LIST:

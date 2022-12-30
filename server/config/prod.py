@@ -39,12 +39,16 @@ def prodNetworkConfig():
 
     server_config = read_json(CONFIG_PATH)
 
+    mode = server_config["server"]["mode"]
     server = "http://" + server_config["server"]["host"] + ":" + str(server_config["server"]["port"])
-    network_config = server_config["networkConfig"]
+    network_config = server_config["networkConfig"][mode]
     funcVer = network_config["content"]["funcVer"]
 
     if server_config["assets"]["autoUpdate"]:
-        version = updateData("https://ak-conf.hypergryph.com/config/prod/official/Android/version")
+        if mode == "cn":
+            version = updateData("https://ak-conf.hypergryph.com/config/prod/official/Android/version")
+        elif mode == "global":
+            version = updateData("https://ark-us-static-online.yo-star.com/assetbundle/official/Android/version")
         server_config["version"]["android"] = version
 
         write_json(server_config, CONFIG_PATH)
@@ -68,13 +72,23 @@ def prodRemoteConfig():
 
 def prodPreAnnouncement():
 
-    data = updateData("https://ak-conf.hypergryph.com/config/prod/announce_meta/Android/preannouncement.meta.json")
+    server_config = read_json(CONFIG_PATH)
+    mode = server_config["server"]["mode"]
+    if mode == "cn":
+        data = updateData("https://ak-conf.hypergryph.com/config/prod/announce_meta/Android/preannouncement.meta.json")
+    elif mode == "global":
+        data = updateData("https://ark-us-static-online.yo-star.com/announce/Android/preannouncement.meta.json")
 
     return data
 
 
 def prodAnnouncement():
 
-    data = updateData("https://ak-conf.hypergryph.com/config/prod/announce_meta/Android/announcement.meta.json")
+    server_config = read_json(CONFIG_PATH)
+    mode = server_config["server"]["mode"]
+    if mode == "cn":
+        data = updateData("https://ak-conf.hypergryph.com/config/prod/announce_meta/Android/announcement.meta.json")    
+    elif mode == "global":
+        data = updateData("https://ark-us-static-online.yo-star.com/announce/Android/announcement.meta.json")
 
     return data

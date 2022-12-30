@@ -7,7 +7,7 @@ import json
 from ppadb.client import Client as AdbClient
 
 server_port = json.load(open('./config/config.json', 'r'))["server"]["port"]
-default_ports = [7555, 62001]
+default_ports = [5555, 7555, 62001]
 ADB_PATH = "platform-tools\\adb.exe"
 
 def get_device():
@@ -29,7 +29,6 @@ def get_device():
             result = result.split(":")
             client.remote_connect(result[0], int(result[1]))
 
-    result = subprocess.getoutput(f'"{ADB_PATH}" wait-for-device')
     devices = client.devices()
     if len(devices) == 1:
         return devices[0]

@@ -29,6 +29,7 @@ def getFile(assetsHash, fileName):
 
     global MODS_LIST
     server_config = read_json(CONFIG_PATH)
+    mode = server_config["server"]["mode"]
     version = server_config["version"]["android"]["resVersion"]
     basePath  = os.path.join('.', 'assets', version, 'redirect')
     
@@ -38,7 +39,10 @@ def getFile(assetsHash, fileName):
     if not server_config["assets"]["downloadLocally"]:
         basePath  = os.path.join('.', 'assets', version)
         if fileName != 'hot_update_list.json'and fileName not in MODS_LIST["download"]:
-            return redirect('https://ak.hycdn.cn/assetbundle/official/Android/assets/{}/{}'.format(version, fileName), 302)
+            if mode == "cn":
+                return redirect('https://ak.hycdn.cn/assetbundle/official/Android/assets/{}/{}'.format(version, fileName), 302)
+            elif mode == "global":
+                return redirect('https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/{}/{}'.format(version, fileName), 302)
 
     if not os.path.isdir(basePath):
         os.makedirs(basePath)
@@ -62,7 +66,10 @@ def getFile(assetsHash, fileName):
 
     writeLog('/{}/{}'.format(version, fileName))
 
-    return export('https://ak.hycdn.cn/assetbundle/official/Android/assets/{}/{}'.format(version, fileName), filePath, assetsHash, wrongSize)
+    if mode == "cn":
+        return export('https://ak.hycdn.cn/assetbundle/official/Android/assets/{}/{}'.format(version, fileName), filePath, assetsHash, wrongSize)
+    elif mode == "global":
+        return export('https://ark-us-static-online.yo-star.com/assetbundle/official/Android/assets/{}/{}'.format(version, fileName), filePath, assetsHash, wrongSize)
 
 
 def downloadFile(url, filePath):

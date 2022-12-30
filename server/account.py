@@ -379,13 +379,14 @@ def accountSyncData():
         player_data["user"]["charm"]["charms"].update({charm["id"]: 1})
 
     # Update battle bus
-    for car_gear in activity_table["carData"]["carDict"]:
-        player_data["user"]["car"]["accessories"].update({
-            car_gear: {
-                "id": car_gear,
-                "num": len(activity_table["carData"]["carDict"][car_gear]["posList"])
-            }
-        })
+    if "carData" in activity_table:
+        for car_gear in activity_table["carData"]["carDict"]:
+            player_data["user"]["car"]["accessories"].update({
+                car_gear: {
+                    "id": car_gear,
+                    "num": len(activity_table["carData"]["carDict"][car_gear]["posList"])
+                }
+            })
 
     # Update Stultifera Navis
     activity_data = activity_table["activity"]["TYPE_ACT17SIDE"]["act17side"]
@@ -491,3 +492,23 @@ def accountSyncStatus():
 
     return data
 
+
+def accountYostarAuthRequest():
+
+    data = request.data
+    data = {}
+
+    return data
+
+
+def accountYostarAuthSubmit():
+
+    data = request.data
+    data = {
+        "result": 0,
+        "yostar_account": "Doctorate@doctorate.com",
+        "yostar_token": "a",
+        "yostar_uid": "1"
+    }
+
+    return data

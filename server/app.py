@@ -21,9 +21,14 @@ logger = logging.getLogger('werkzeug')
 logger.setLevel(logging.INFO)
 logger.addFilter(lambda s: not re.match(".*404 -*", s.getMessage()))
 
+app.add_url_rule('/app/getSettings', methods=['POST'], view_func=user.appGetSettings)
+app.add_url_rule('/app/getCode', methods=['POST'], view_func=user.appGetCode)
+
 app.add_url_rule('/account/login', methods=['POST'], view_func=account.accountLogin)
 app.add_url_rule('/account/syncData', methods=['POST'], view_func=account.accountSyncData)
 app.add_url_rule('/account/syncStatus', methods=['POST'], view_func=account.accountSyncStatus)
+app.add_url_rule('/account/yostar_auth_request', methods=['POST'], view_func=account.accountYostarAuthRequest)
+app.add_url_rule('/account/yostar_auth_submit', methods=['POST'], view_func=account.accountYostarAuthSubmit)
 
 app.add_url_rule('/assetbundle/official/Android/assets/<string:assetsHash>/<string:fileName>', methods=['GET'], view_func=asset.assetbundle.getFile)
 
@@ -99,12 +104,14 @@ app.add_url_rule('/story/finishStory', methods=['POST'], view_func=story.storyFi
 app.add_url_rule('/quest/finishStoryStage', methods=['POST'], view_func=story.storyFinishStory)
 
 app.add_url_rule('/user/auth', methods=['POST'], view_func=user.userAuth)
+app.add_url_rule('/user/agreement', methods=['GET'], view_func=user.userAgreement)
 app.add_url_rule('/user/checkIn', methods=['POST'], view_func=user.userCheckIn)
 app.add_url_rule('/user/changeSecretary', methods=['POST'], view_func=user.userChangeSecretary)
 app.add_url_rule('/user/login', methods=['POST'], view_func=user.userLogin)
 app.add_url_rule('/user/changeAvatar', methods=['POST'], view_func=user.userChangeAvatar)
 app.add_url_rule('/user/oauth2/v1/grant', methods=['POST'], view_func=user.userOAuth2V1Grant)
 app.add_url_rule('/user/info/v1/need_cloud_auth', methods=['POST'], view_func=user.userV1NeedCloudAuth)
+app.add_url_rule('/user/yostar_createlogin', methods=['POST'], view_func=user.userYostarCreatelogin)
 app.add_url_rule('/u8/user/v1/getToken', methods=['POST'], view_func=user.userV1getToken)
 
 

@@ -1,5 +1,6 @@
 import json
 
+import requests
 from flask import request
 
 from constants import USER_JSON_PATH
@@ -48,12 +49,17 @@ def userLogin():
 
     data = request.data
     data = {
+        "accessToken": "1",
+        "birth": None,
+        "channelId": "",
         "isAuthenticate": True,
         "isLatestUserAgreement": True,
         "isMinor": False,
         "needAuthenticate": False,
         "result": 0,
         "token": "abcd",
+        "yostar_username": "Doctorate@doctorate.com",
+        "yostar_uid": "1",
         "uid": "1"
     }
 
@@ -142,3 +148,43 @@ def userChangeAvatar():
 
     return data
 
+
+def appGetSettings():
+
+    data = request.data
+    data = requests.get("https://passport.arknights.global/app/getSettings").json()
+    return data
+
+
+def appGetCode():
+
+    data = request.data
+    data = requests.get("https://passport.arknights.global/app/getCode").json()
+    return data
+
+
+def userYostarCreatelogin():
+
+    data = request.data
+    data = {
+        "isNew": 0,
+        "result": 0,
+        "token": "1",
+        "uid": "1",
+        "yostar_uid": "1",
+        "yostar_username": "Doctorate@doctorate.com"
+    }
+
+    return data
+
+def userAgreement():
+
+    data = request.data
+    data = {
+        "data": [
+            "¯\_(ツ)_/¯"
+        ],
+        "version": "4.0.0"
+    }
+
+    return data
